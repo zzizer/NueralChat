@@ -1,0 +1,11 @@
+<!-- chat_details.html -->
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Chat Details</h1>
+    <p>User: {{ chat.user.username }}</p>
+    <p>Message: {{ chat.message }}</p>
+    <p>Reply: {{ chat.reply }}</p>
+
+{% endblock %}

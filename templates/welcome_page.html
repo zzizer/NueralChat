@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<title>Welcome</title>
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+
+    <div class="row">
+
+        <div class="col-lg-8">
+            <h1>Welcome to Neural Chat</h1>
+            <h4 class="py-2">The best and reliable (voice & text-based) AI assistant</h4>
+            <p>
+                Welcome to Neural Chat, where the power of cutting-edge neural 
+                networks transforms conversations into an intelligent and engaging experience. 
+                Immerse yourself in a world where human interaction meets artificial intelligence, 
+                as our state-of-the-art chat system, driven by advanced neural networks, 
+                delivers dynamic and insightful conversations. Whether you seek information, 
+                want to spark creativity, or simply engage in delightful banter, 
+                Neural Chat is your gateway to a new realm of conversational possibilities. 
+                Join us on this journey of discovery, where every interaction is enhanced by the boundless 
+                capabilities of our neural-powered chat platform. Start conversing, exploring, 
+                and unlocking the potential of intelligent dialogue with Neural Chat.
+            </p>
+        </div>
+
+        <div class="col-lg-4 d-flex align-items-center justify-content-center">
+            
+            <div class="text-center">
+                {% if user.is_authenticated %}
+                <a class="btn btn-primary" href="{% url "signout" %}">Logout</a>
+                {% else %}
+                <a class="btn btn-primary" href="{% url "signin" %}">Login</a>
+                <a class="btn btn-primary" href="{% url "signup" %}">Signup</a>
+                {% endif %}
+            </div>
+            
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

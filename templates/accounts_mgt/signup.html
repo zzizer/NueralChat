@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+
+    <div class="row">
+        <h3 class="py-3 text-center">Register</h3>
+        <hr>
+        <form method="post" class="text-center">
+
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group mb-3">
+                        <label for="email_field" class="form-label">Email address</label>
+                        <input type="email" name="email" id="email_field" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group mb-3">
+                        <label for="email_field" class="form-label">Username</label>
+                        <input type="text" name="username" id="email_field" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group mb-3">
+                        <label for="first_name_field" class="form-label">First Name</label>
+                        <input type="text" name="first_name" id="first_name_field" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group mb-3">
+                        <label for="last_name_field" class="form-label">Last Name</label>
+                        <input type="text" name="last_name" id="last_name_field" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group mb-3">
+                        <label for="password1_field" class="form-label">Password</label>
+                        <input type="password" name="password1" id="password1_field" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group mb-3">
+                        <label for="password2_field" class="form-label">Confirm Password</label>
+                        <input type="password" name="password2" id="password2_field" class="form-control">
+                    </div>
+                </div>
+            </div>
+                
+
+            <input class="btn btn-primary mt-2 mb-2" type="submit" value="Submit">
+        </form>
+
+        <hr>
+
+    </div>
+
+</div>
+
+{% endblock %}

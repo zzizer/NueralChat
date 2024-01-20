@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5 py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Message display area -->
+                    <div class="container">
+                        <div class="row mb-3">
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum, aperiam!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum, aperiam!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum, aperiam!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum, aperiam!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum, aperiam!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum, aperiam!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input field and audio button -->
+                    <form method="post" id="audio-form">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <button type="button" class="btn btn-primary" onclick="toggleRecording()">
+                                <i class="bi bi-mic"></i>
+                            </button>
+                            <input type="text" name="message_input" class="form-control" placeholder="Type your message here...">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                        <audio controls id="audio-player" style="display: none;"></audio>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and Popper.js scripts (required for Bootstrap) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-e3pDdrOSLImJcWnUHE83O8FDEcW35ZXYiQ9SNWcMXd1JwMz1l5wF8F4f7QfaC2k" crossorigin="anonymous"></script>
+
+<!-- Your custom script for audio recording -->
+<script>
+    let mediaRecorder;
+    let audioChunks = [];
+    let audioPlayer = document.getElementById('audio-player');
+
+    function toggleRecording() {
+        if (mediaRecorder && mediaRecorder.state === 'recording') {
+            stopRecording();
+        } else {
+            startRecording();
+        }
+    }
+
+    async function startRecording() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    audioChunks.push(event.data);
+                }
+            };
+
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                audioPlayer.src = audioUrl;
+                audioPlayer.style.display = 'block';
+
+                // Reset chunks for next recording
+                audioChunks = [];
+            };
+
+            mediaRecorder.start();
+        } catch (error) {
+            console.error('Error accessing microphone:', error);
+        }
+    }
+
+    function stopRecording() {
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+        }
+    }
+</script>
+
+{% endblock %}

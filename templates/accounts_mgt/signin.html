@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<title>Signin</title>
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+
+    <div class="row">
+        <h3 class="py-3 text-center">Signin</h3>
+        <hr>
+        <form method="post" class="text-center">
+
+            {% csrf_token %}
+
+            <div class="form-group mb-3">
+                <label for="email_field" class="form-label">Email address</label>
+                <input type="text" name="email" id="email_field" class="form-control">
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="password_field" class="form-label">Password</label>
+                <input type="password" name="password" id="password_field" class="form-control">
+            </div>
+
+            <input class="btn btn-primary mt-2 mb-2" type="submit" value="Login">
+        </form>
+
+        <hr>
+
+    </div>
+
+</div>
+
+{% endblock %}
